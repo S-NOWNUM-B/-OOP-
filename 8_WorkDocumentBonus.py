@@ -1,16 +1,24 @@
 class User:
     def __init__(self, username, email, password):
-        self._username = username
-        self._email = email
+        self.username = username
+        self.email = email
         self._password = password
 
     @property
     def username(self):
         return self._username
 
+    @username.setter
+    def username(self, new_username):
+        self._username = new_username
+
     @property
     def email(self):
         return self._email
+
+    @email.setter
+    def email(self, new_email):
+        self._email = new_email
 
     def __eq__(self, other):
         if isinstance(other, User):
@@ -51,14 +59,19 @@ db.add_user(user2)
 db.add_user(user3)
 db.add_user(user1)
 
-print("\nСписок пользоватлей в базе:")
+print("\nСписок пользователей в базе:")
 print(db)
 
 print("\nПроверка наличия пользователей:")
-print(f"SNOWNUMB в базе? {"да" if db.has_user(user1) else "нет"}")
-print(f"Stas в базе? {"Yes" if db.has_user(user2) else "No"}")
-print(f"Kenedi в базе? {"Yes" if db.has_user(User("Kenedi", "KenediTheBestBoss1@gmail.com", "TheBestWorldAndUSABoss")) else "No"}")
+print(f"SNOWNUMB в базе? {'да' if db.has_user(user1) else 'нет'}")
+print(f"Stas в базе? {'Yes' if db.has_user(user2) else 'No'}")
+print(f"Kenedi в базе? {'Yes' if db.has_user(User('Kenedi', 'KenediTheBestBoss1@gmail.com', 'TheBestWorldAndUSABoss')) else 'No'}")
 
 print("\nВсе пользователи в базе данных:")
 for User in db.users:
     print(f"User: {User.username}, email: {User.email}")
+
+print("\nИзменение username и email пользователя user1:")
+user1.username = "NEW_SNOWNUB"
+user1.email = "new_email@gmail.com"
+print(f"Обновленный пользователь: {user1}")

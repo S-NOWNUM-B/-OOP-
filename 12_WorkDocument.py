@@ -102,50 +102,50 @@
 
 #Задание 3
 #
-from abc import ABC, abstractmethod
-import functools
-
-def log_class_methods():
-    def class_decorator(cls):
-        for attr_name in dir(cls):
-            attr = getattr(cls, attr_name)
-            if callable(attr) and not attr_name.startswith("__"):
-                @functools.wraps(attr)
-                def logged_method(method):
-                    @functools.wraps(method)
-                    def wrapper(*args, **kwargs):
-                        print(f"Метод {method.__name__} вызван")
-                        return method(*args, **kwargs)
-                    return wrapper
-                setattr(cls, attr_name, logged_method(attr))
-        return cls
-    return class_decorator
-
-class Vehicle(ABC):
-    @abstractmethod
-    def move(self):
-        pass
-
-@log_class_methods()
-class Car(Vehicle):
-    def move(self):
-        print("Автомобиль едет по дороге.")
-
-@log_class_methods()
-class Bicycle(Vehicle):
-    def move(self):
-        print("Велосипед движется по велосипедной дорожке.")
-
-@log_class_methods()
-class Airplane(Vehicle):
-    def move(self):
-        print("Самолет летит в небе.")
-
-if __name__ == "__main__":
-    car = Car()
-    bicycle = Bicycle()
-    airplane = Airplane()
-
-    car.move()
-    bicycle.move()
-    airplane.move()
+# from abc import ABC, abstractmethod
+# import functools
+#
+# def log_class_methods():
+#     def class_decorator(cls):
+#         for attr_name in dir(cls):
+#             attr = getattr(cls, attr_name)
+#             if callable(attr) and not attr_name.startswith("__"):
+#                 @functools.wraps(attr)
+#                 def logged_method(method):
+#                     @functools.wraps(method)
+#                     def wrapper(*args, **kwargs):
+#                         print(f"Метод {method.__name__} вызван")
+#                         return method(*args, **kwargs)
+#                     return wrapper
+#                 setattr(cls, attr_name, logged_method(attr))
+#         return cls
+#     return class_decorator
+#
+# class Vehicle(ABC):
+#     @abstractmethod
+#     def move(self):
+#         pass
+#
+# @log_class_methods()
+# class Car(Vehicle):
+#     def move(self):
+#         print("Автомобиль едет по дороге.")
+#
+# @log_class_methods()
+# class Bicycle(Vehicle):
+#     def move(self):
+#         print("Велосипед движется по велосипедной дорожке.")
+#
+# @log_class_methods()
+# class Airplane(Vehicle):
+#     def move(self):
+#         print("Самолет летит в небе.")
+#
+# if __name__ == "__main__":
+#     car = Car()
+#     bicycle = Bicycle()
+#     airplane = Airplane()
+#
+#     car.move()
+#     bicycle.move()
+#     airplane.move()
